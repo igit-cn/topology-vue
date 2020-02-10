@@ -17,6 +17,13 @@ Nuxt.js + Element
 
 采用了 typescript，scss 等。其中 node-sass 可能需要采用阿里源安装才能成功：  
 yarn config set registry https://registry.npm.taobao.org
+或
+yarn config set sass-binary-site https://npm.taobao.org/mirrors/node-sass
+npm config set sass-binary-site https://npm.taobao.org/mirrors/node-sass
+
+琰菲:
+yarn config set registry https://registry.npm.taobao.org
+
 
 # 开发
 
