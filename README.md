@@ -21,7 +21,6 @@ yarn config set registry https://registry.npm.taobao.org
 yarn config set sass-binary-site https://npm.taobao.org/mirrors/node-sass
 npm config set sass-binary-site https://npm.taobao.org/mirrors/node-sass
 
-琰菲:
 yarn config set registry https://registry.npm.taobao.org
 
 
