@@ -421,7 +421,7 @@ export const Tools = [
             height: 100
           },
           name: 'image',
-          image: '/assets/img/logo.png'
+          image: '/img/logo.png'
         }
       },
       {

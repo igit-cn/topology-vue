@@ -113,7 +113,7 @@ export default {
     },
 
     onMessage(event, data) {
-      console.log('onMessage:', event, data)
+      // console.log('onMessage:', event, data)
       switch (event) {
         case 'node':
         case 'addNode':
