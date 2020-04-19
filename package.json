@@ -13,14 +13,15 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "cookie-universal-nuxt": "^2.0.19",
     "element-ui": "^2.4.11",
     "file-saver": "^2.0.2",
     "nuxt": "^2.0.0",
-    "cookie-universal-nuxt": "^2.0.19",
     "topology-activity-diagram": "^0.0.4",
     "topology-class-diagram": "^0.0.1",
-    "topology-core": "^0.1.9",
+    "topology-core": "^0.2.7-dev",
     "topology-flow-diagram": "^0.0.1",
+    "topology-layout": "^0.0.3",
     "topology-sequence-diagram": "^0.0.4"
   },
   "devDependencies": {
