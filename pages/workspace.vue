@@ -184,7 +184,7 @@ export default {
               lineName: this.canvas.data.lineName,
               fromArrowType: this.canvas.data.fromArrowType,
               toArrowType: this.canvas.data.toArrowType,
-              fromArrowlockedType: this.canvas.data.locked
+              locked: this.canvas.data.locked
             })
           }
           break
