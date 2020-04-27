@@ -79,6 +79,12 @@ export default {
     }
   },
   created() {
+    if (process.client && window['echartsData']) {
+      for (let key in window['echartsData']) {
+        document.body.removeChild(window['echartsData'][key]).div;
+      }
+      window['echartsData'] = {};
+    }
     canvasRegister()
     if (process.client) {
       document.onclick = event => {
@@ -140,8 +146,8 @@ export default {
             node: null,
             line: null,
             multi: true,
-            nodes: data.nodes.length > 1 ? data.nodes : null,
-            locked: this.getLocked(data)
+            nodes: data.length > 1 ? data : null,
+            locked: this.getLocked({ nodes: data })
           }
           break
         case 'space':
@@ -397,9 +403,14 @@ export default {
         height: 0.4rem;
         text-align: center;
         text-decoration: none !important;
+        cursor: pointer;
 
         .iconfont {
           font-size: 0.24rem;
+        }
+
+        &:hover {
+          color: #1890ff;
         }
       }
     }

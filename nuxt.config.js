@@ -19,7 +19,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_1113798_0532l8oa6jqp.css'
+        // href: '//at.alicdn.com/t/font_1113798_0532l8oa6jqp.css'
+        href: '//at.alicdn.com/t/font_1113798_nklzr6lk7z.css' // add ECharts
       },
       {
         rel: 'stylesheet',

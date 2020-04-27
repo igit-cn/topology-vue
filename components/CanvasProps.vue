@@ -47,6 +47,7 @@
             <el-input-number
               v-model="props.node.rect.x"
               controls-position="right"
+              @keydown="inputPress"
               @change="onChange"
             ></el-input-number>
           </div>
@@ -81,6 +82,112 @@
           </div>
         </div>
       </div>
+      <div class="items" v-if="props.node.is3D">
+        <div class="flex grid">
+          <div>Z（px）</div>
+        </div>
+        <div class="flex grid">
+          <div>
+            <el-input-number
+              v-model="props.node.z"
+              controls-position="right"
+
+              @change="onChange"
+            ></el-input-number>
+          </div>
+        </div>
+      </div>
+      <div class="items">
+        <div class="flex grid">
+          <div title="百分比%对应的小数值">圆角（0 - 1）</div>
+          <div class="ml5">旋转（°）</div>
+        </div>
+        <div class="flex grid">
+          <div>
+            <el-input-number
+              v-model="props.node.borderRadius"
+              controls-position="right"
+              @change="onChange"
+              :min="0"
+              :max="1"
+              :step="1"
+            ></el-input-number>
+          </div>
+          <div class="ml5">
+            <el-input-number
+              v-model="props.node.rotate"
+              controls-position="right"
+              @change="onChange"
+            ></el-input-number>
+          </div>
+        </div>
+      </div>
+      <div class="items">
+        <div class="flex grid">
+          <div title="padding-left">内边距-左</div>
+          <div title="padding-right" class="ml5">内边距-右</div>
+        </div>
+        <div class="flex grid">
+          <div>
+            <el-input
+              size="small"
+              v-model="props.node.paddingLeft"
+              controls-position="right"
+              @change="onChange"
+            ></el-input>
+          </div>
+          <div class="ml5">
+            <el-input
+              size="small"
+              v-model="props.node.paddingRight"
+              controls-position="right"
+              @change="onChange"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="items">
+        <div class="flex grid">
+          <div title="padding-top">内边距-上</div>
+          <div title="padding-bottom" class="ml5">内边距-下</div>
+        </div>
+        <div class="flex grid">
+          <div>
+            <el-input
+              size="small"
+              v-model="props.node.paddingTop"
+              controls-position="right"
+              @change="onChange"
+            ></el-input>
+          </div>
+          <div class="ml5">
+            <el-input
+              size="small"
+              v-model="props.node.paddingBottom"
+              controls-position="right"
+              @change="onChange"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="items gray" style="line-height: 1.5">
+        内边距：输入数字表示像素；输入%表示百分比
+      </div>
+      <div class="items">
+        <div class="flex grid">
+          <div class="custom-data">自定义数据 <i :class="expand ? 'el-icon-zoom-out' : 'el-icon-zoom-in'" @click="expand = !expand" size='small'>{{expand ? '缩小' : '放大'}}</i></div>
+        </div>
+        <div class="flex grid">
+          <div :class="expand ? 'expand-data' : ''">
+            <el-input
+              type="textarea"
+              v-model="nodeData"
+              :rows="expand ? 15 : 3"
+              @change="onChange"
+            ></el-input>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +195,12 @@
 <script >
 export default {
   data() {
-    return {}
+    return {
+      nodeId: null,
+      nodeIsJson: false,
+      expand: false,
+      nodeData: ''
+    }
   },
   props: {
     props: {
@@ -96,9 +208,30 @@ export default {
       require: true
     }
   },
+  updated() {
+    if (!this.props.node || this.nodeId === this.props.node.id) {
+      return;
+    }
+    this.expand = false;
+    this.nodeId = this.props.node.id;
+    let originData = this.props.node.data;
+    this.nodeIsJson = this.isJson(originData);
+    this.nodeData = this.nodeIsJson ?
+      JSON.stringify(originData, null, 4) :
+      this.nodeData = originData;
+  },
   methods: {
+    inputPress($evt) {
+      $evt.stopPropagation();
+    },
     onChange(value) {
-      this.$emit('change', this.props.node)
+      if (this.props.node) {
+        this.props.node.data = this.nodeIsJson ? JSON.parse(this.nodeData) : this.nodeData;
+      }
+      this.$emit('change', this.props.node);
+    },
+    isJson (obj) {
+      return typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
     }
   }
 }
@@ -142,11 +275,12 @@ export default {
   padding: 0.05rem 0.15rem;
 
   .el-input-number {
-    width: initial;
+    width: 1.02rem;
     line-height: 0.32rem;
 
     .el-input__inner {
       padding-left: 0;
+      padding-right: 40px;
       height: 0.34rem;
       line-height: 0.34rem;
     }
@@ -154,6 +288,20 @@ export default {
     .el-input-number__increase {
       line-height: 0.16rem;
     }
+  }
+
+  .custom-data i {
+    cursor: pointer;
+    float: right;
+    color: #409eff;
+    height: 2em;
+    line-height: 2em;
+  }
+
+  .expand-data {
+    position: fixed;
+    right: 0.15rem;
+    width: 5rem;
   }
 }
 
