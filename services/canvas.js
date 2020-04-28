@@ -74,7 +74,7 @@ import {
 } from 'topology-sequence-diagram'
 // echarts
 import {
-  echarts
+  register as registerChart
 } from 'topology-chart-diagram'
 import {
   loadJS
@@ -199,12 +199,9 @@ export function canvasRegister() {
   )
 
   // echarts
-  if (process.client && !window.echarts) { // nuxt需要在客户端才可以调用loadJS
-    loadJS('https://cdn.bootcss.com/echarts/4.3.0/echarts.min.js', null, true);
+  if (process.client) { // nuxt需要在客户端才可以注册echarts
+    registerChart();
   }
-  registerNode(
-    'echarts', echarts, null, null, null
-  )
 }
 
 export const Tools = [
@@ -1096,7 +1093,7 @@ export const Tools = [
             }
           }
         }
-      },
+      }
     ]
   }
 ]

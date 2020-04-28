@@ -47,7 +47,6 @@
             <el-input-number
               v-model="props.node.rect.x"
               controls-position="right"
-              @keydown="inputPress"
               @change="onChange"
             ></el-input-number>
           </div>
@@ -91,7 +90,6 @@
             <el-input-number
               v-model="props.node.z"
               controls-position="right"
-
               @change="onChange"
             ></el-input-number>
           </div>
@@ -110,7 +108,7 @@
               @change="onChange"
               :min="0"
               :max="1"
-              :step="1"
+              :step="0.1"
             ></el-input-number>
           </div>
           <div class="ml5">
@@ -173,16 +171,17 @@
       <div class="items gray" style="line-height: 1.5">
         内边距：输入数字表示像素；输入%表示百分比
       </div>
+      <div class="title"></div>
       <div class="items">
         <div class="flex grid">
-          <div class="custom-data">自定义数据 <i :class="expand ? 'el-icon-zoom-out' : 'el-icon-zoom-in'" @click="expand = !expand" size='small'>{{expand ? '缩小' : '放大'}}</i></div>
+          <div class="custom-data">自定义数据 <i :class="props.expand ? 'el-icon-zoom-out' : 'el-icon-zoom-in'" @click="changeExpand" size='small'>{{props.expand ? '缩小' : '放大'}}</i></div>
         </div>
         <div class="flex grid">
-          <div :class="expand ? 'expand-data' : ''">
+          <div :class="props.expand ? 'expand-data' : ''">
             <el-input
               type="textarea"
               v-model="nodeData"
-              :rows="expand ? 15 : 3"
+              :rows="props.expand ? 15 : 3"
               @change="onChange"
             ></el-input>
           </div>
@@ -198,7 +197,6 @@ export default {
     return {
       nodeId: null,
       nodeIsJson: false,
-      expand: false,
       nodeData: ''
     }
   },
@@ -212,7 +210,7 @@ export default {
     if (!this.props.node || this.nodeId === this.props.node.id) {
       return;
     }
-    this.expand = false;
+    this.props.expand = false;
     this.nodeId = this.props.node.id;
     let originData = this.props.node.data;
     this.nodeIsJson = this.isJson(originData);
@@ -221,14 +219,14 @@ export default {
       this.nodeData = originData;
   },
   methods: {
-    inputPress($evt) {
-      $evt.stopPropagation();
-    },
     onChange(value) {
       if (this.props.node) {
         this.props.node.data = this.nodeIsJson ? JSON.parse(this.nodeData) : this.nodeData;
       }
       this.$emit('change', this.props.node);
+    },
+    changeExpand() {
+      this.props.expand = !this.props.expand;
     },
     isJson (obj) {
       return typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
@@ -299,7 +297,7 @@ export default {
   }
 
   .expand-data {
-    position: fixed;
+    position: absolute;
     right: 0.15rem;
     width: 5rem;
   }
