@@ -17,7 +17,7 @@
       </div>
     </div>
     <div id="topology-canvas" class="full" @contextmenu="onContextMenu($event)"></div>
-    <div class="props">
+    <div class="props" :style="props.expand ? 'overflow: visible' : ''">
       <CanvasProps :props.sync="props" @change="onUpdateProps"></CanvasProps>
     </div>
     <div class="context-menu" v-if="contextmenu.left" :style="this.contextmenu">
@@ -41,13 +41,15 @@ export default {
       tools: Tools,
       canvas: {},
       canvasOptions: {
-        rotateCursor: '/img/rotate.cur'
+        rotateCursor: '/img/rotate.cur',
+        keydown: 1 // KeydownType.Canvas，默认的KeydownType.Document会导致右侧属性输入框编辑时有影响
       },
       props: {
         node: null,
         line: null,
         nodes: null,
         multi: false,
+        expand: false,
         locked: false
       },
       contextmenu: {
@@ -77,6 +79,12 @@ export default {
     }
   },
   created() {
+    if (process.client && window['echartsData']) {
+      for (let key in window['echartsData']) {
+        document.body.removeChild(window['echartsData'][key]).div;
+      }
+      window['echartsData'] = {};
+    }
     canvasRegister()
     if (process.client) {
       document.onclick = event => {
@@ -111,66 +119,48 @@ export default {
     },
 
     onMessage(event, data) {
-      console.log('onMessage:', event, data)
-      switch (event) {
-        case 'node':
-        case 'addNode':
-          this.props = {
-            node: data,
-            line: null,
-            multi: false,
-            nodes: null,
-            locked: data.locked
-          }
-          break
-        case 'line':
-        case 'addLine':
-          this.props = {
-            node: null,
-            line: data,
-            multi: false,
-            nodes: null,
-            locked: data.locked
-          }
-          break
-        case 'multi':
-          this.props = {
-            node: null,
-            line: null,
-            multi: true,
-            nodes: data.nodes.length > 1 ? data.nodes : null,
-            locked: this.getLocked(data)
-          }
-          break
-        case 'space':
-          this.props = {
-            node: null,
-            line: null,
-            multi: false,
-            nodes: null,
-            locked: false
-          }
-          break
-        case 'moveOut':
-          break
-        case 'moveNodes':
-        case 'resizeNodes':
-          if (data.length > 1) {
+      // 右侧输入框编辑状态时点击编辑区域其他元素，onMessage执行后才执行onUpdateProps方法，通过setTimeout让onUpdateProps先执行
+      setTimeout(() => {
+        switch (event) {
+          case 'node':
+          case 'addNode':
+            this.props = {
+              node: data,
+              line: null,
+              multi: false,
+              expand: this.props.expand,
+              nodes: null,
+              locked: data.locked
+            }
+            break
+          case 'line':
+          case 'addLine':
+            this.props = {
+              node: null,
+              line: data,
+              multi: false,
+              nodes: null,
+              locked: data.locked
+            }
+            break
+          case 'multi':
             this.props = {
               node: null,
               line: null,
               multi: true,
-              nodes: data,
+              nodes: data.length > 1 ? data : null,
               locked: this.getLocked({ nodes: data })
             }
-          } else {
+            break
+          case 'space':
             this.props = {
-              node: data[0],
+              node: null,
               line: null,
               multi: false,
               nodes: null,
               locked: false
             }
+<<<<<<< HEAD
           }
           break
         case 'resize':
@@ -187,6 +177,46 @@ export default {
           }
           break
       }
+=======
+            break
+          case 'moveOut':
+            break
+          case 'moveNodes':
+          case 'resizeNodes':
+            if (data.length > 1) {
+              this.props = {
+                node: null,
+                line: null,
+                multi: true,
+                nodes: data,
+                locked: this.getLocked({ nodes: data })
+              }
+            } else {
+              this.props = {
+                node: data[0],
+                line: null,
+                multi: false,
+                nodes: null,
+                locked: false
+              }
+            }
+            break
+          case 'resize':
+          case 'scale':
+          case 'locked':
+            if (this.canvas && this.canvas.data) {
+              this.$store.commit('canvas/data', {
+                scale: this.canvas.data.scale || 1,
+                lineName: this.canvas.data.lineName,
+                fromArrowType: this.canvas.data.fromArrowType,
+                toArrowType: this.canvas.data.toArrowType,
+                fromArrowlockedType: this.canvas.data.locked
+              })
+            }
+            break
+        }
+      }, 0)
+>>>>>>> 81b4bd8011b2c4f2de4d51be663f099302a53121
     },
 
     getLocked(data) {
@@ -354,6 +384,9 @@ export default {
         }
       }
     }
+  },
+  destroyed () {
+    this.canvas.destroy();
   }
 }
 </script>
@@ -395,9 +428,14 @@ export default {
         height: 0.4rem;
         text-align: center;
         text-decoration: none !important;
+        cursor: pointer;
 
         .iconfont {
           font-size: 0.24rem;
+        }
+
+        &:hover {
+          color: #1890ff;
         }
       }
     }

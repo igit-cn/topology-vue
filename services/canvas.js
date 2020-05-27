@@ -2,6 +2,7 @@ import { register as registerFlow } from '@topology/flow-diagram'
 import { register as registerActivity } from '@topology/activity-diagram'
 import { register as registerSequence } from '@topology/sequence-diagram'
 
+<<<<<<< HEAD
 import { register as registerClass } from '~/class-diagram/index'
 
 export function canvasRegister() {
@@ -9,6 +10,172 @@ export function canvasRegister() {
   registerActivity()
   registerSequence()
   registerClass()
+=======
+import {
+  activityFinal,
+  activityFinalIconRect,
+  activityFinalTextRect,
+  swimlaneV,
+  swimlaneVIconRect,
+  swimlaneVTextRect,
+  swimlaneH,
+  swimlaneHIconRect,
+  swimlaneHTextRect,
+  fork,
+  forkHAnchors,
+  forkIconRect,
+  forkTextRect,
+  forkVAnchors
+} from 'topology-activity-diagram'
+import {
+  simpleClass,
+  simpleClassIconRect,
+  simpleClassTextRect,
+  interfaceClass,
+  interfaceClassIconRect,
+  interfaceClassTextRect
+} from 'topology-class-diagram'
+import {
+  lifeline,
+  lifelineAnchors,
+  lifelineIconRect,
+  lifelineTextRect,
+  sequenceFocus,
+  sequenceFocusAnchors,
+  sequenceFocusIconRect,
+  sequenceFocusTextRect
+} from 'topology-sequence-diagram'
+// echarts
+import {
+  register as registerChart
+} from 'topology-chart-diagram'
+import {
+  loadJS
+} from "topology-core/utils/dom";
+
+export function canvasRegister() {
+  registerNode(
+    'flowData',
+    flowData,
+    flowDataAnchors,
+    flowDataIconRect,
+    flowDataTextRect
+  )
+  registerNode(
+    'flowSubprocess',
+    flowSubprocess,
+    null,
+    flowSubprocessIconRect,
+    flowSubprocessTextRect
+  )
+  registerNode('flowDb', flowDb, null, flowDbIconRect, flowDbTextRect)
+  registerNode(
+    'flowDocument',
+    flowDocument,
+    flowDocumentAnchors,
+    flowDocumentIconRect,
+    flowDocumentTextRect
+  )
+  registerNode(
+    'flowInternalStorage',
+    flowInternalStorage,
+    null,
+    flowInternalStorageIconRect,
+    flowInternalStorageTextRect
+  )
+  registerNode(
+    'flowExternStorage',
+    flowExternStorage,
+    flowExternStorageAnchors,
+    flowExternStorageIconRect,
+    flowExternStorageTextRect
+  )
+  registerNode(
+    'flowQueue',
+    flowQueue,
+    null,
+    flowQueueIconRect,
+    flowQueueTextRect
+  )
+  registerNode(
+    'flowManually',
+    flowManually,
+    flowManuallyAnchors,
+    flowManuallyIconRect,
+    flowManuallyTextRect
+  )
+  registerNode(
+    'flowDisplay',
+    flowDisplay,
+    flowDisplayAnchors,
+    flowDisplayIconRect,
+    flowDisplayTextRect
+  )
+  registerNode('flowParallel', flowParallel, flowParallelAnchors, null, null)
+  registerNode('flowComment', flowComment, flowCommentAnchors, null, null)
+
+  // activity
+  registerNode(
+    'activityFinal',
+    activityFinal,
+    null,
+    activityFinalIconRect,
+    activityFinalTextRect
+  )
+  registerNode(
+    'swimlaneV',
+    swimlaneV,
+    null,
+    swimlaneVIconRect,
+    swimlaneVTextRect
+  )
+  registerNode(
+    'swimlaneH',
+    swimlaneH,
+    null,
+    swimlaneHIconRect,
+    swimlaneHTextRect
+  )
+  registerNode('forkH', fork, forkHAnchors, forkIconRect, forkTextRect)
+  registerNode('forkV', fork, forkVAnchors, forkIconRect, forkTextRect)
+
+  // class
+  registerNode(
+    'simpleClass',
+    simpleClass,
+    null,
+    simpleClassIconRect,
+    simpleClassTextRect
+  )
+  registerNode(
+    'interfaceClass',
+    interfaceClass,
+    null,
+    interfaceClassIconRect,
+    interfaceClassTextRect
+  )
+
+  // sequence
+  registerNode(
+    'lifeline',
+    lifeline,
+    lifelineAnchors,
+    lifelineIconRect,
+    lifelineTextRect
+  )
+  registerNode(
+    'sequenceFocus',
+    sequenceFocus,
+    sequenceFocusAnchors,
+    sequenceFocusIconRect,
+    sequenceFocusTextRect
+  )
+
+  // echarts
+  if (process.client) { // nuxt需要在客户端才可以注册echarts
+    registerChart();
+  }
+>>>>>>> 81b4bd8011b2c4f2de4d51be663f099302a53121
 }
 
 export const Tools = [
@@ -718,6 +885,187 @@ export const Tools = [
               }
             }
           ]
+        }
+      }
+    ]
+  },
+  {
+    group: '图表控件',
+    children: [
+      {
+        name: '折线图',
+        icon: 'icon-line-chart',
+        data: {
+          text: '折线图',
+          rect: {
+            width: 300,
+            height: 200
+          },
+          name: 'echarts',
+          data: {
+            echarts: {
+              option: {
+                xAxis: {
+                  type: 'category',
+                  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                },
+                yAxis: {
+                  type: 'value'
+                },
+                series: [{
+                  data: [820, 932, 901, 934, 1290, 1330, 1320],
+                  type: 'line'
+                }]
+              }
+            }
+          }
+        }
+      },
+      {
+        name: '柱状图',
+        icon: 'icon-bar-chart',
+        data: {
+          text: '柱状图',
+          rect: {
+            width: 300,
+            height: 200
+          },
+          name: 'echarts',
+          data: {
+            echarts: {
+              option: {
+                color: ['#3398DB'],
+                tooltip: {
+                  trigger: 'axis',
+                  axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                  }
+                },
+                grid: {
+                  left: '3%',
+                  right: '4%',
+                  bottom: '3%',
+                  containLabel: true
+                },
+                xAxis: [
+                  {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    axisTick: {
+                      alignWithLabel: true
+                    }
+                  }
+                ],
+                yAxis: [
+                  {
+                    type: 'value'
+                  }
+                ],
+                series: [
+                  {
+                    name: '直接访问',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: [10, 52, 200, 334, 390, 330, 220]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        name: '饼图',
+        icon: 'icon-pie-chart',
+        data: {
+          text: '饼图',
+          rect: {
+            width: 200,
+            height: 200
+          },
+          name: 'echarts',
+          data: {
+            echarts: {
+              option: {
+                tooltip: {
+                  trigger: 'item',
+                  formatter: '{a} <br/>{b}: {c} ({d}%)'
+                },
+                legend: {
+                  orient: 'vertical',
+                  x: 'left',
+                  data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                },
+                series: [
+                  {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      normal: {
+                        show: false,
+                        position: 'center'
+                      },
+                      emphasis: {
+                        show: true,
+                        textStyle: {
+                          fontSize: '30',
+                          fontWeight: 'bold'
+                        }
+                      }
+                    },
+                    labelLine: {
+                      normal: {
+                        show: false
+                      }
+                    },
+                    data: [
+                      { value: 335, name: '直接访问' },
+                      { value: 310, name: '邮件营销' },
+                      { value: 234, name: '联盟广告' },
+                      { value: 135, name: '视频广告' },
+                      { value: 1548, name: '搜索引擎' }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }, {
+        name: '仪表盘',
+        icon: 'icon-dashboard-chart',
+        data: {
+          text: '仪表盘',
+          rect: {
+            width: 300,
+            height: 300
+          },
+          name: 'echarts',
+          data: {
+            echarts: {
+              option: {
+                tooltip: {
+                  formatter: '{a} <br/>{b} : {c}%'
+                },
+                toolbox: {
+                  feature: {
+                    restore: {},
+                    saveAsImage: {}
+                  }
+                },
+                series: [
+                  {
+                    name: '业务指标',
+                    type: 'gauge',
+                    detail: { formatter: '{value}%' },
+                    data: [{ value: 50, name: '完成率' }]
+                  }
+                ]
+              }
+            }
+          }
         }
       }
     ]
