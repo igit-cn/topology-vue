@@ -81,9 +81,9 @@ export default {
   created() {
     if (process.client && window['echartsData']) {
       for (let key in window['echartsData']) {
-        document.body.removeChild(window['echartsData'][key]).div;
+        document.body.removeChild(window['echartsData'][key]).div
       }
-      window['echartsData'] = {};
+      window['echartsData'] = {}
     }
     canvasRegister()
     if (process.client) {
@@ -160,24 +160,6 @@ export default {
               nodes: null,
               locked: false
             }
-<<<<<<< HEAD
-          }
-          break
-        case 'resize':
-        case 'scale':
-        case 'locked':
-          if (this.canvas && this.canvas.data) {
-            this.$store.commit('canvas/data', {
-              scale: this.canvas.data.scale || 1,
-              lineName: this.canvas.data.lineName,
-              fromArrowType: this.canvas.data.fromArrowType,
-              toArrowType: this.canvas.data.toArrowType,
-              locked: this.canvas.data.locked
-            })
-          }
-          break
-      }
-=======
             break
           case 'moveOut':
             break
@@ -216,7 +198,6 @@ export default {
             break
         }
       }, 0)
->>>>>>> 81b4bd8011b2c4f2de4d51be663f099302a53121
     },
 
     getLocked(data) {
@@ -385,8 +366,8 @@ export default {
       }
     }
   },
-  destroyed () {
-    this.canvas.destroy();
+  destroyed() {
+    this.canvas.destroy()
   }
 }
 </script>
