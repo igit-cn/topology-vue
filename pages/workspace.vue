@@ -27,9 +27,7 @@
 </template>
 
 <script>
-import { Topology } from 'topology-core'
-import { Node } from 'topology-core/models/node'
-import { Line } from 'topology-core/models/line'
+import { Topology, Node, Line } from '@topology/core'
 import * as FileSaver from 'file-saver'
 
 import { Tools, canvasRegister } from '~/services/canvas'
