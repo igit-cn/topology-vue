@@ -17,13 +17,13 @@
     "element-ui": "^2.4.11",
     "file-saver": "^2.0.2",
     "nuxt": "^2.0.0",
-    "@topology/core": "^0.2.5",
-    "@topology/activity-diagram": "^0.2.0",
-    "@topology/class-diagram": "^0.2.0",
-    "@topology/flow-diagram": "^0.2.0",
-    "@topology/sequence-diagram": "^0.2.0",
-    "@topology/chart-diagram": "^0.2.0",
-    "@topology/layout": "^0.2.0"
+    "@topology/core": "^0.2.7",
+    "@topology/activity-diagram": "^0.2.4",
+    "@topology/class-diagram": "^0.2.4",
+    "@topology/flow-diagram": "^0.2.4",
+    "@topology/sequence-diagram": "^0.2.4",
+    "@topology/chart-diagram": "^0.2.4",
+    "@topology/layout": "^0.2.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

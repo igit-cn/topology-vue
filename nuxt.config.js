@@ -72,7 +72,7 @@ export default {
    ** Build configuration
    */
   build: {
-    transpile: [/^element-ui/],
+    transpile: [/^element-ui/, /^@topology/],
     /*
      ** You can extend webpack config here
      */

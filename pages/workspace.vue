@@ -35,15 +35,15 @@ import { Tools, canvasRegister } from '~/services/canvas'
 import CanvasProps from '~/components/CanvasProps'
 import CanvasContextMenu from '~/components/CanvasContextMenu'
 
+let canvas
+const canvasOptions = {
+  rotateCursor: '/img/rotate.cur'
+}
+
 export default {
   data() {
     return {
       tools: Tools,
-      canvas: {},
-      canvasOptions: {
-        rotateCursor: '/img/rotate.cur',
-        keydown: 1 // KeydownType.Canvas，默认的KeydownType.Document会导致右侧属性输入框编辑时有影响
-      },
       props: {
         node: null,
         line: null,
@@ -97,8 +97,8 @@ export default {
     }
   },
   mounted() {
-    this.canvasOptions.on = this.onMessage
-    this.canvas = new Topology('topology-canvas', this.canvasOptions)
+    canvasOptions.on = this.onMessage
+    canvas = new Topology('topology-canvas', canvasOptions)
     this.open()
   },
   methods: {
@@ -110,7 +110,7 @@ export default {
         '/api/topology/' + this.$route.query.id
       )
       if (data && data.id) {
-        this.canvas.open(data.data)
+        canvas.open(data.data)
       }
     },
 
@@ -186,13 +186,13 @@ export default {
           case 'resize':
           case 'scale':
           case 'locked':
-            if (this.canvas && this.canvas.data) {
+            if (canvas && canvas.data) {
               this.$store.commit('canvas/data', {
-                scale: this.canvas.data.scale || 1,
-                lineName: this.canvas.data.lineName,
-                fromArrowType: this.canvas.data.fromArrowType,
-                toArrowType: this.canvas.data.toArrowType,
-                fromArrowlockedType: this.canvas.data.locked
+                scale: canvas.data.scale || 1,
+                lineName: canvas.data.lineName,
+                fromArrowType: canvas.data.fromArrowType,
+                toArrowType: canvas.data.toArrowType,
+                fromArrowlockedType: canvas.data.locked
               })
             }
             break
@@ -225,11 +225,11 @@ export default {
     onUpdateProps(node) {
       // 如果是node属性改变，需要传入node，重新计算node相关属性值
       // 如果是line属性改变，无需传参
-      this.canvas.updateProps(node)
+      canvas.updateProps(node)
     },
 
     handle_new(data) {
-      this.canvas.open({ nodes: [], lines: [] })
+      canvas.open({ nodes: [], lines: [] })
     },
 
     handle_open(data) {
@@ -253,7 +253,7 @@ export default {
                 Array.isArray(data.nodes) &&
                 Array.isArray(data.lines)
               ) {
-                this.canvas.open(data)
+                canvas.open(data)
               }
             } catch (e) {
               return false
@@ -267,7 +267,7 @@ export default {
 
     handle_save(data) {
       FileSaver.saveAs(
-        new Blob([JSON.stringify(this.canvas.data)], {
+        new Blob([JSON.stringify(canvas.data)], {
           type: 'text/plain;charset=utf-8'
         }),
         `le5le.topology.json`
@@ -275,19 +275,16 @@ export default {
     },
 
     handle_savePng(data) {
-      this.canvas.saveAsImage('le5le.topology.png')
+      canvas.saveAsImage('le5le.topology.png')
     },
 
     handle_saveSvg(data) {
-      const ctx = new C2S(
-        this.canvas.canvas.width + 200,
-        this.canvas.canvas.height + 200
-      )
-      for (const item of this.canvas.data.nodes) {
+      const ctx = new C2S(canvas.canvas.width + 200, canvas.canvas.height + 200)
+      for (const item of canvas.data.nodes) {
         item.render(ctx)
       }
 
-      for (const item of this.canvas.data.lines) {
+      for (const item of canvas.data.lines) {
         item.render(ctx)
       }
 
@@ -319,33 +316,33 @@ export default {
     },
 
     handle_undo(data) {
-      this.canvas.undo()
+      canvas.undo()
     },
 
     handle_redo(data) {
-      this.canvas.redo()
+      canvas.redo()
     },
 
     handle_copy(data) {
-      this.canvas.copy()
+      canvas.copy()
     },
 
     handle_cut(data) {
-      this.canvas.cut()
+      canvas.cut()
     },
 
     handle_parse(data) {
-      this.canvas.parse()
+      canvas.parse()
     },
 
     handle_state(data) {
-      this.canvas.data[data.key] = data.value
+      canvas.data[data.key] = data.value
       this.$store.commit('canvas/data', {
-        scale: this.canvas.data.scale || 1,
-        lineName: this.canvas.data.lineName,
-        fromArrowType: this.canvas.data.fromArrowType,
-        toArrowType: this.canvas.data.toArrowType,
-        fromArrowlockedType: this.canvas.data.locked
+        scale: canvas.data.scale || 1,
+        lineName: canvas.data.lineName,
+        fromArrowType: canvas.data.fromArrowType,
+        toArrowType: canvas.data.toArrowType,
+        fromArrowlockedType: canvas.data.locked
       })
     },
 
@@ -367,7 +364,7 @@ export default {
     }
   },
   destroyed() {
-    this.canvas.destroy()
+    canvas.destroy()
   }
 }
 </script>
