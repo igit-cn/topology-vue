@@ -1124,54 +1124,54 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
-"@topology/activity-diagram@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/@topology/activity-diagram/download/@topology/activity-diagram-0.2.4.tgz?cache=0&sync_timestamp=1590752869595&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40topology%2Factivity-diagram%2Fdownload%2F%40topology%2Factivity-diagram-0.2.4.tgz#6374a62fb46908ad0939cdf2e5cacb0c5dfa07e3"
-  integrity sha1-Y3SmL7RpCK0JOc3y5crLDF36B+M=
+"@topology/activity-diagram@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.npm.taobao.org/@topology/activity-diagram/download/@topology/activity-diagram-0.2.17.tgz#a21eaafedcf8a5b55afd3e3ca9375f25bc7652da"
+  integrity sha1-oh6q/tz4pbVa/T48qTdfJbx2Uto=
   dependencies:
-    "@topology/core" "^0.2.4"
+    "@topology/core" "^0.2.17"
 
-"@topology/chart-diagram@^0.2.4":
-  version "0.2.7"
-  resolved "https://registry.npm.taobao.org/@topology/chart-diagram/download/@topology/chart-diagram-0.2.7.tgz#d8c50f47bdf89451d2cdd7cf1b35a5d4160ee446"
-  integrity sha1-2MUPR734lFHSzdfPGzWl1BYO5EY=
+"@topology/chart-diagram@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.npm.taobao.org/@topology/chart-diagram/download/@topology/chart-diagram-0.2.17.tgz#46e4ed6bbcd362a54ab8f2911f6e69254da2214e"
+  integrity sha1-RuTta7zTYqVKuPKRH25pJU2iIU4=
   dependencies:
-    "@topology/core" "^0.2.4"
+    "@topology/core" "^0.2.17"
 
-"@topology/class-diagram@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/@topology/class-diagram/download/@topology/class-diagram-0.2.4.tgz#1f31edc88899f16bc70e01bcb6932283462a3472"
-  integrity sha1-HzHtyIiZ8WvHDgG8tpMig0YqNHI=
+"@topology/class-diagram@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.npm.taobao.org/@topology/class-diagram/download/@topology/class-diagram-0.2.17.tgz#fb973584408de51f232acc6856f785c0e646f13b"
+  integrity sha1-+5c1hECN5R8jKsxoVveFwOZG8Ts=
   dependencies:
-    "@topology/core" "^0.2.4"
+    "@topology/core" "^0.2.17"
 
-"@topology/core@^0.2.4", "@topology/core@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.npm.taobao.org/@topology/core/download/@topology/core-0.2.7.tgz#0bedb800912794966dd10b630b43fd37e61aeac0"
-  integrity sha1-C+24AJEnlJZt0QtjC0P9N+Ya6sA=
+"@topology/core@^0.2.16", "@topology/core@^0.2.17", "@topology/core@^0.2.19":
+  version "0.2.19"
+  resolved "https://registry.npm.taobao.org/@topology/core/download/@topology/core-0.2.19.tgz#7c3e127d4f2cab53a255df8d07b9599513125f31"
+  integrity sha1-fD4SfU8sq1OiVd+NB7lZlRMSXzE=
   dependencies:
     le5le-store "^1.0.7"
 
-"@topology/flow-diagram@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/@topology/flow-diagram/download/@topology/flow-diagram-0.2.4.tgz#3900032998bd17ea0cb712fdbe5e650c8b0d620f"
-  integrity sha1-OQADKZi9F+oMtxL9vl5lDIsNYg8=
+"@topology/flow-diagram@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.npm.taobao.org/@topology/flow-diagram/download/@topology/flow-diagram-0.2.17.tgz#33faec99b8acaa1287b5cc6598a84ed2b5f8d4e0"
+  integrity sha1-M/rsmbisqhKHtcxlmKhO0rX41OA=
   dependencies:
-    "@topology/core" "^0.2.4"
+    "@topology/core" "^0.2.17"
 
-"@topology/layout@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/@topology/layout/download/@topology/layout-0.2.4.tgz#8022ce8cb47614cf22a6ae9c0306fbf19b36025e"
-  integrity sha1-gCLOjLR2FM8ipq6cAwb78Zs2Al4=
+"@topology/layout@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.npm.taobao.org/@topology/layout/download/@topology/layout-0.2.17.tgz#e52c4509ab59b699c607d3e39d353ef7b68d35a7"
+  integrity sha1-5SxFCatZtpnGB9PjnTU+97aNNac=
   dependencies:
-    "@topology/core" "^0.2.4"
+    "@topology/core" "^0.2.16"
 
-"@topology/sequence-diagram@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/@topology/sequence-diagram/download/@topology/sequence-diagram-0.2.4.tgz#789459cb9327966da80ac2a0d2868193f9e3d8fa"
-  integrity sha1-eJRZy5Mnlm2oCsKg0oaBk/nj2Po=
+"@topology/sequence-diagram@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.npm.taobao.org/@topology/sequence-diagram/download/@topology/sequence-diagram-0.2.17.tgz#4e31f9105a767ffc245d959aa1e4e9785c175f29"
+  integrity sha1-TjH5EFp2f/wkXZWaoeTpeFwXXyk=
   dependencies:
-    "@topology/core" "^0.2.4"
+    "@topology/core" "^0.2.17"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
