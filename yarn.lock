@@ -1124,54 +1124,54 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
-"@topology/activity-diagram@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.npm.taobao.org/@topology/activity-diagram/download/@topology/activity-diagram-0.2.17.tgz#a21eaafedcf8a5b55afd3e3ca9375f25bc7652da"
-  integrity sha1-oh6q/tz4pbVa/T48qTdfJbx2Uto=
+"@topology/activity-diagram@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npm.taobao.org/@topology/activity-diagram/download/@topology/activity-diagram-0.2.24.tgz#3744c8be0c2525ad68cdc0875b5e668f787a463e"
+  integrity sha1-N0TIvgwlJa1ozcCHW15mj3h6Rj4=
   dependencies:
-    "@topology/core" "^0.2.17"
+    "@topology/core" "^0.2.24"
 
-"@topology/chart-diagram@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.npm.taobao.org/@topology/chart-diagram/download/@topology/chart-diagram-0.2.17.tgz#46e4ed6bbcd362a54ab8f2911f6e69254da2214e"
-  integrity sha1-RuTta7zTYqVKuPKRH25pJU2iIU4=
+"@topology/chart-diagram@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npm.taobao.org/@topology/chart-diagram/download/@topology/chart-diagram-0.2.24.tgz#76465efc0a7383327f8a3b6b8c67c93bfc4b776c"
+  integrity sha1-dkZe/ApzgzJ/ijtrjGfJO/xLd2w=
   dependencies:
-    "@topology/core" "^0.2.17"
+    "@topology/core" "^0.2.24"
 
-"@topology/class-diagram@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.npm.taobao.org/@topology/class-diagram/download/@topology/class-diagram-0.2.17.tgz#fb973584408de51f232acc6856f785c0e646f13b"
-  integrity sha1-+5c1hECN5R8jKsxoVveFwOZG8Ts=
+"@topology/class-diagram@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npm.taobao.org/@topology/class-diagram/download/@topology/class-diagram-0.2.24.tgz#6d48ad072773eeaf0ff89d1c46b4980fe3a7152d"
+  integrity sha1-bUitBydz7q8P+J0cRrSYD+OnFS0=
   dependencies:
-    "@topology/core" "^0.2.17"
+    "@topology/core" "^0.2.24"
 
-"@topology/core@^0.2.16", "@topology/core@^0.2.17", "@topology/core@^0.2.19":
-  version "0.2.19"
-  resolved "https://registry.npm.taobao.org/@topology/core/download/@topology/core-0.2.19.tgz#7c3e127d4f2cab53a255df8d07b9599513125f31"
-  integrity sha1-fD4SfU8sq1OiVd+NB7lZlRMSXzE=
+"@topology/core@^0.2.24", "@topology/core@^0.2.30":
+  version "0.2.30"
+  resolved "https://registry.npm.taobao.org/@topology/core/download/@topology/core-0.2.30.tgz#1234faaaea72d0537729168e1c68466caad9b400"
+  integrity sha1-EjT6qupy0FN3KRaOHGhGbKrZtAA=
   dependencies:
     le5le-store "^1.0.7"
 
-"@topology/flow-diagram@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.npm.taobao.org/@topology/flow-diagram/download/@topology/flow-diagram-0.2.17.tgz#33faec99b8acaa1287b5cc6598a84ed2b5f8d4e0"
-  integrity sha1-M/rsmbisqhKHtcxlmKhO0rX41OA=
+"@topology/flow-diagram@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npm.taobao.org/@topology/flow-diagram/download/@topology/flow-diagram-0.2.24.tgz#fff56b125724813fb64399cc5339a36a7c12d32b"
+  integrity sha1-//VrElckgT+2Q5nMUzmjanwS0ys=
   dependencies:
-    "@topology/core" "^0.2.17"
+    "@topology/core" "^0.2.24"
 
-"@topology/layout@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.npm.taobao.org/@topology/layout/download/@topology/layout-0.2.17.tgz#e52c4509ab59b699c607d3e39d353ef7b68d35a7"
-  integrity sha1-5SxFCatZtpnGB9PjnTU+97aNNac=
+"@topology/layout@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npm.taobao.org/@topology/layout/download/@topology/layout-0.2.24.tgz#987d364b4620b73c56d1154b2d99ef63fa95d4a7"
+  integrity sha1-mH02S0YgtzxW0RVLLZnvY/qV1Kc=
   dependencies:
-    "@topology/core" "^0.2.16"
+    "@topology/core" "^0.2.24"
 
-"@topology/sequence-diagram@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.npm.taobao.org/@topology/sequence-diagram/download/@topology/sequence-diagram-0.2.17.tgz#4e31f9105a767ffc245d959aa1e4e9785c175f29"
-  integrity sha1-TjH5EFp2f/wkXZWaoeTpeFwXXyk=
+"@topology/sequence-diagram@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npm.taobao.org/@topology/sequence-diagram/download/@topology/sequence-diagram-0.2.24.tgz#11d12894b6230778864829e0d39405da4b7bbe58"
+  integrity sha1-EdEolLYjB3iGSCng05QF2kt7vlg=
   dependencies:
-    "@topology/core" "^0.2.17"
+    "@topology/core" "^0.2.24"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
