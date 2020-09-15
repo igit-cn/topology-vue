@@ -230,7 +230,7 @@ export default {
     },
 
     handle_new(data) {
-      canvas.open({ nodes: [], lines: [] });
+      canvas.open();
     },
 
     handle_open(data) {
@@ -249,13 +249,7 @@ export default {
             const text = e.target.result + '';
             try {
               const data = JSON.parse(text);
-              if (
-                data &&
-                Array.isArray(data.nodes) &&
-                Array.isArray(data.lines)
-              ) {
-                canvas.open(data);
-              }
+              canvas.open(data);
             } catch (e) {
               return false;
             }
