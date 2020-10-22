@@ -27,7 +27,7 @@ yarn config set registry https://registry.npm.taobao.org
 
 ```bash
 # install dependencies
-$ yarn install
+$ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn dev
