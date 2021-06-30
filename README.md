@@ -1,4 +1,5 @@
-喜欢，请到这里给我们投一票：https://www.oschina.net/project/top_cn_2019?utm_source=projectdetail 。（开发工具栏，或下滑网页搜索：Topology）
+# 支持我们  
+喜欢，请到给我们投票：https://www.oschina.net/project/top_cn_2020 。（开发工具栏，或下滑网页搜索：Topology）
 
 # topology-vue
 
@@ -15,7 +16,7 @@ Nuxt.js + Element
 
 # 依赖
 
-采用了 typescript，scss 等。其中 node-sass 可能需要采用阿里源安装才能成功：  
+推荐使用国内源：  
 yarn config set registry https://registry.npm.taobao.org
 或
 yarn config set sass-binary-site https://npm.taobao.org/mirrors/node-sass
@@ -23,12 +24,11 @@ npm config set sass-binary-site https://npm.taobao.org/mirrors/node-sass
 
 yarn config set registry https://registry.npm.taobao.org
 
-
 # 开发
 
 ```bash
 # install dependencies
-$ yarn install
+$ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn dev

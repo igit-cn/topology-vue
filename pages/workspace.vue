@@ -27,25 +27,23 @@
 </template>
 
 <script>
-import { Topology } from 'topology-core'
-import { Node } from 'topology-core/models/node'
-import { Line } from 'topology-core/models/line'
-import * as FileSaver from 'file-saver'
+import { Topology, Node, Line } from '@topology/core';
+import * as FileSaver from 'file-saver';
 
-import { Tools, canvasRegister } from '~/services/canvas'
+import { Tools, canvasRegister } from '~/services/canvas';
 
-import CanvasProps from '~/components/CanvasProps'
-import CanvasContextMenu from '~/components/CanvasContextMenu'
+import CanvasProps from '~/components/CanvasProps';
+import CanvasContextMenu from '~/components/CanvasContextMenu';
+
+let canvas;
+const canvasOptions = {
+  rotateCursor: '/img/rotate.cur'
+};
 
 export default {
   data() {
     return {
       tools: Tools,
-      canvas: {},
-      canvasOptions: {
-        rotateCursor: '/img/rotate.cur',
-        keydown: 1 // KeydownType.Canvas，默认的KeydownType.Document会导致右侧属性输入框编辑时有影响
-      },
       props: {
         node: null,
         line: null,
@@ -59,7 +57,7 @@ export default {
         top: null,
         bottom: null
       }
-    }
+    };
   },
   components: {
     CanvasProps,
@@ -67,17 +65,17 @@ export default {
   },
   computed: {
     event() {
-      return this.$store.state.event.event
+      return this.$store.state.event.event;
     }
   },
   watch: {
     event(curVal) {
       if (this['handle_' + curVal.name]) {
-        this['handle_' + curVal.name](curVal.data)
+        this['handle_' + curVal.name](curVal.data);
       }
     },
     $route(val) {
-      this.open()
+      this.open();
     }
   },
   created() {
@@ -87,40 +85,41 @@ export default {
       }
       window['echartsData'] = {};
     }
-    canvasRegister()
+    canvasRegister();
     if (process.client) {
       document.onclick = event => {
         this.contextmenu = {
           left: null,
           top: null,
           bottom: null
-        }
-      }
+        };
+      };
     }
   },
   mounted() {
-    this.canvasOptions.on = this.onMessage
-    this.canvas = new Topology('topology-canvas', this.canvasOptions)
-    this.open()
+    canvasOptions.on = this.onMessage;
+    canvas = new Topology('topology-canvas', canvasOptions);
+    this.open();
   },
   methods: {
     async open() {
       if (!this.$route.query.id) {
-        return
+        return;
       }
       const data = await this.$axios.$get(
         '/api/topology/' + this.$route.query.id
-      )
+      );
       if (data && data.id) {
-        this.canvas.open(data.data)
+        canvas.open(data.data);
       }
     },
 
     onDrag(event, node) {
-      event.dataTransfer.setData('Text', JSON.stringify(node.data))
+      event.dataTransfer.setData('Text', JSON.stringify(node.data));
     },
 
     onMessage(event, data) {
+      console.log('onMessage', event, data);
       // 右侧输入框编辑状态时点击编辑区域其他元素，onMessage执行后才执行onUpdateProps方法，通过setTimeout让onUpdateProps先执行
       setTimeout(() => {
         switch (event) {
@@ -133,8 +132,8 @@ export default {
               expand: this.props.expand,
               nodes: null,
               locked: data.locked
-            }
-            break
+            };
+            break;
           case 'line':
           case 'addLine':
             this.props = {
@@ -143,8 +142,8 @@ export default {
               multi: false,
               nodes: null,
               locked: data.locked
-            }
-            break
+            };
+            break;
           case 'multi':
             this.props = {
               node: null,
@@ -152,8 +151,8 @@ export default {
               multi: true,
               nodes: data.length > 1 ? data : null,
               locked: this.getLocked({ nodes: data })
-            }
-            break
+            };
+            break;
           case 'space':
             this.props = {
               node: null,
@@ -161,10 +160,10 @@ export default {
               multi: false,
               nodes: null,
               locked: false
-            }
-            break
+            };
+            break;
           case 'moveOut':
-            break
+            break;
           case 'moveNodes':
           case 'resizeNodes':
             if (data.length > 1) {
@@ -174,7 +173,7 @@ export default {
                 multi: true,
                 nodes: data,
                 locked: this.getLocked({ nodes: data })
-              }
+              };
             } else {
               this.props = {
                 node: data[0],
@@ -182,118 +181,109 @@ export default {
                 multi: false,
                 nodes: null,
                 locked: false
-              }
+              };
             }
-            break
+            break;
           case 'resize':
           case 'scale':
           case 'locked':
-            if (this.canvas && this.canvas.data) {
+            if (canvas && canvas.data) {
               this.$store.commit('canvas/data', {
-                scale: this.canvas.data.scale || 1,
-                lineName: this.canvas.data.lineName,
-                fromArrowType: this.canvas.data.fromArrowType,
-                toArrowType: this.canvas.data.toArrowType,
-                fromArrowlockedType: this.canvas.data.locked
-              })
+                scale: canvas.data.scale || 1,
+                lineName: canvas.data.lineName,
+                fromArrowType: canvas.data.fromArrowType,
+                toArrowType: canvas.data.toArrowType,
+                fromArrowlockedType: canvas.data.locked
+              });
             }
-            break
+            break;
         }
-      }, 0)
+      }, 0);
     },
 
     getLocked(data) {
-      let locked = true
+      let locked = true;
       if (data.nodes && data.nodes.length) {
         for (const item of data.nodes) {
           if (!item.locked) {
-            locked = false
-            break
+            locked = false;
+            break;
           }
         }
       }
       if (locked && data.lines) {
         for (const item of data.lines) {
           if (!item.locked) {
-            locked = false
-            break
+            locked = false;
+            break;
           }
         }
       }
 
-      return locked
+      return locked;
     },
 
     onUpdateProps(node) {
       // 如果是node属性改变，需要传入node，重新计算node相关属性值
       // 如果是line属性改变，无需传参
-      this.canvas.updateProps(node)
+      canvas.updateProps(node);
     },
 
     handle_new(data) {
-      this.canvas.open({ nodes: [], lines: [] })
+      canvas.open();
     },
 
     handle_open(data) {
-      this.handle_replace(data)
+      this.handle_replace(data);
     },
 
     handle_replace(data) {
-      const input = document.createElement('input')
-      input.type = 'file'
+      const input = document.createElement('input');
+      input.type = 'file';
       input.onchange = event => {
-        const elem = event.srcElement || event.target
+        const elem = event.srcElement || event.target;
         if (elem.files && elem.files[0]) {
-          const name = elem.files[0].name.replace('.json', '')
-          const reader = new FileReader()
+          const name = elem.files[0].name.replace('.json', '');
+          const reader = new FileReader();
           reader.onload = e => {
-            const text = e.target.result + ''
+            const text = e.target.result + '';
             try {
-              const data = JSON.parse(text)
-              if (
-                data &&
-                Array.isArray(data.nodes) &&
-                Array.isArray(data.lines)
-              ) {
-                this.canvas.open(data)
-              }
+              const data = JSON.parse(text);
+              canvas.open(data);
             } catch (e) {
-              return false
+              return false;
             }
-          }
-          reader.readAsText(elem.files[0])
+          };
+          reader.readAsText(elem.files[0]);
         }
-      }
-      input.click()
+      };
+      input.click();
     },
 
     handle_save(data) {
       FileSaver.saveAs(
-        new Blob([JSON.stringify(this.canvas.data)], {
+        new Blob([JSON.stringify(canvas.data)], {
           type: 'text/plain;charset=utf-8'
         }),
         `le5le.topology.json`
-      )
+      );
     },
 
     handle_savePng(data) {
-      this.canvas.saveAsImage('le5le.topology.png')
+      canvas.saveAsImage('le5le.topology.png');
     },
 
     handle_saveSvg(data) {
-      const ctx = new C2S(
-        this.canvas.canvas.width + 200,
-        this.canvas.canvas.height + 200
-      )
-      for (const item of this.canvas.data.nodes) {
-        item.render(ctx)
+      const ctx = new C2S(canvas.canvas.width + 200, canvas.canvas.height + 200);
+      for (const item of canvas.data.nodes) {
+        item.render(ctx);
       }
 
-      for (const item of this.canvas.data.lines) {
-        item.render(ctx)
+      for (const item of canvas.data.lines) {
+        item.render(ctx);
       }
 
-      let mySerializedSVG = ctx.getSerializedSvg()
+      let mySerializedSVG = ctx.getSerializedSvg();
       mySerializedSVG = mySerializedSVG.replace(
         '<defs/>',
         `<defs>
@@ -304,72 +294,72 @@ export default {
       }
     </style>
   </defs>`
-      )
+      );
 
-      mySerializedSVG = mySerializedSVG.replace(/--le5le--/g, '&#x')
+      mySerializedSVG = mySerializedSVG.replace(/--le5le--/g, '&#x');
 
-      const urlObject = window.URL || window
-      const export_blob = new Blob([mySerializedSVG])
-      const url = urlObject.createObjectURL(export_blob)
+      const urlObject = window.URL || window;
+      const export_blob = new Blob([mySerializedSVG]);
+      const url = urlObject.createObjectURL(export_blob);
 
-      const a = document.createElement('a')
-      a.setAttribute('download', 'le5le.topology.svg')
-      a.setAttribute('href', url)
-      const evt = document.createEvent('MouseEvents')
-      evt.initEvent('click', true, true)
-      a.dispatchEvent(evt)
+      const a = document.createElement('a');
+      a.setAttribute('download', 'le5le.topology.svg');
+      a.setAttribute('href', url);
+      const evt = document.createEvent('MouseEvents');
+      evt.initEvent('click', true, true);
+      a.dispatchEvent(evt);
     },
 
     handle_undo(data) {
-      this.canvas.undo()
+      canvas.undo();
     },
 
     handle_redo(data) {
-      this.canvas.redo()
+      canvas.redo();
     },
 
     handle_copy(data) {
-      this.canvas.copy()
+      canvas.copy();
     },
 
     handle_cut(data) {
-      this.canvas.cut()
+      canvas.cut();
     },
 
     handle_parse(data) {
-      this.canvas.parse()
+      canvas.parse();
     },
 
     handle_state(data) {
-      this.canvas.data[data.key] = data.value
+      canvas.data[data.key] = data.value;
       this.$store.commit('canvas/data', {
-        scale: this.canvas.data.scale || 1,
-        lineName: this.canvas.data.lineName,
-        fromArrowType: this.canvas.data.fromArrowType,
-        toArrowType: this.canvas.data.toArrowType,
-        fromArrowlockedType: this.canvas.data.locked
-      })
+        scale: canvas.data.scale || 1,
+        lineName: canvas.data.lineName,
+        fromArrowType: canvas.data.fromArrowType,
+        toArrowType: canvas.data.toArrowType,
+        fromArrowlockedType: canvas.data.locked
+      });
     },
 
     onContextMenu(event) {
-      event.preventDefault()
-      event.stopPropagation()
+      event.preventDefault();
+      event.stopPropagation();
 
       if (event.clientY + 360 < document.body.clientHeight) {
         this.contextmenu = {
           left: event.clientX + 'px',
           top: event.clientY + 'px'
-        }
+        };
       } else {
         this.contextmenu = {
           left: event.clientX + 'px',
           bottom: document.body.clientHeight - event.clientY + 'px'
-        }
+        };
       }
     }
   },
-  destroyed () {
-    this.canvas.destroy();
+  destroyed() {
+    canvas.destroy();
   }
 }
 </script>
